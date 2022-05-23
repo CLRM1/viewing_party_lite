@@ -29,4 +29,24 @@ RSpec.describe 'Landing Page' do
     expect(current_path).to eq('/')
   end
 
+  it 'displays a link to the landing page' do
+#     As a registered user
+# When I visit the landing page `/`
+# I see a link for "Log In"
+# When I click on "Log In"
+# I'm taken to a Log In page ('/login') where I can input my unique email and password.
+# When I enter my unique email and correct password
+# I'm taken to my dashboard page
+# 
+# will check if a user exists with the email address that was provided, then check to see if the password, when hashed, matches the secure password stored in the database, and then redirects the user based on if credentials are correct.
+    user_1 = User.create!(name: 'Charles', email:'charlie@gmail.com', password: 'password123', password_confirmation: 'password123')
+    visit '/'
+    click_link 'Log In'
+    expect(current_path).to eq('/login')
+    fill_in 'email', with: 'charlie@gmail.com'
+    fill_in 'password', with: 'password123'
+    click_on 'Login'
+    expect(current_path).to eq("/users/#{user_1.id}")
+  end
+
 end

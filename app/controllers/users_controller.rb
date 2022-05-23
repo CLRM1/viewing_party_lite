@@ -17,6 +17,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def login_form
+  end
+
+  def login_user
+    user = User.where(email: params[:email]).first
+    if user.authenticate(params[:password])
+      flash[:success] = "Welcome, #{user.email}"
+      redirect_to "/users/#{user.id}"
+    else
+      flash[:error] = "Password or email address don't match"
+    end
+  end
+
   def discover
   end
 
