@@ -19,11 +19,6 @@ RSpec.describe "register page" do
   end
 
   describe 'sad path' do
-#     As a visitor
-# When I visit `/register`
-# and I fail to fill in my name, unique email, OR matching passwords,
-# I'm taken back to the `/register` page
-# and a flash message pops up, telling me what went wrong
     it 'displays an error message when not all required fields have been filled in' do
       visit '/register'
 
@@ -31,6 +26,19 @@ RSpec.describe "register page" do
       fill_in 'email', with: 'chris@gmail.com'
       fill_in 'password', with: '123'
       click_button 'Register'
+      expect(current_path).to eq('/register')
+      expect(page).to have_content('Error, Fill in all fields')
+    end
+
+    it "displays an error when password and password_confirmation don't match" do
+      visit '/register'
+
+      fill_in "name",	with: "Rupert"
+      fill_in "email",	with: "rupert@gmail.com"
+      fill_in "password",	with: "123"
+      fill_in "password_confirmation",	with: "456"
+      click_button 'Register'
+
       expect(current_path).to eq('/register')
       expect(page).to have_content('Error, Fill in all fields')
     end
