@@ -10,12 +10,10 @@ class UsersController < ApplicationController
     user = User.create(user_params)
     if user.save
       redirect_to "/users/#{user.id}"
-    elsif params[:password] != params[:password_confirmation]
-      redirect_to '/register'
-      flash[:alert] = "Error, Fill in all fields"
     else
+      message = user.errors.full_messages.to_sentence
       redirect_to '/register'
-      flash[:alert] = "Error, Fill in all fields"
+      flash[:alert] = "Error: #{message}"
     end
   end
 

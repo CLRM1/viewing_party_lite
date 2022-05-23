@@ -24,10 +24,9 @@ RSpec.describe "register page" do
 
       fill_in 'name', with: 'Chris'
       fill_in 'email', with: 'chris@gmail.com'
-      fill_in 'password', with: '123'
       click_button 'Register'
       expect(current_path).to eq('/register')
-      expect(page).to have_content('Error, Fill in all fields')
+      expect(page).to have_content("Password can't be blank")
     end
 
     it "displays an error when password and password_confirmation don't match" do
@@ -40,7 +39,7 @@ RSpec.describe "register page" do
       click_button 'Register'
 
       expect(current_path).to eq('/register')
-      expect(page).to have_content('Error, Fill in all fields')
+      expect(page).to have_content("Password confirmation doesn't match ")
     end
   end
 end
