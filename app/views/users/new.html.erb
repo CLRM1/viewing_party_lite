@@ -1,9 +1,17 @@
 <h1>Register</h1>
 
 <%= form_with url: '/users', method: :post, local: true do |f| %>
-<%= f.label :name, "Name" %>
-<%= f.text_area :name %>
-<%= f.label :email, "Email" %>
-<%= f.text_area :email %>
+<%= f.text_field :name, placeholder: 'Name' %>
+<br>
+<br>
+<%= f.text_field :email, placeholder: 'Email' %>
+<br>
+<br>
+<%= f.password_field :password, placeholder: 'Password' %>
+<br>
+<br>
+<%= f.password_field :password_confirmation, placeholder: "Password Confirmation" %>
+<br>
+<br>
 <%= f.button 'Register' %>
 <% end  %>

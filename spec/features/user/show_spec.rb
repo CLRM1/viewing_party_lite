@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "user show page" do 
-    it  'has a users dashboard' do 
-        frank = User.create!(name: "Frank", email: "frank@yahoo.com")
+RSpec.describe "user show page" do
+    it  'has a users dashboard' do
+        frank = User.create!(name: "Frank", email: "frank@yahoo.com", password: 'password123', password_confirmation: 'password123')
         visit "/users/#{frank.id}"
 
         expect(page).to have_content("Frank's Dashboard")
