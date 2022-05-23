@@ -26,7 +26,8 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome, #{user.email}"
       redirect_to "/users/#{user.id}"
     else
-      flash[:error] = "Password or email address don't match"
+      redirect_to "/login"
+      flash[:error] = "Incorrect password"
     end
   end
 
