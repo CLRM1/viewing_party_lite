@@ -8,7 +8,7 @@ RSpec.describe 'Move detail page' do
 
 it 'has a button to create a viewing party' do
   click_button 'Create Viewing Party'
-  expect(current_path).to eq("/users/#{@user.id}/movies/862/viewing-party/new")
+  expect(current_path).to eq("/users/movies/862/viewing-party/new")
 end
   it 'displays movie details' do
     expect(page).to have_content('Toy Story')
