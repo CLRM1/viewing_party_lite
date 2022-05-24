@@ -24,6 +24,6 @@ RSpec.describe "user show page" do
       click_button 'Register'
 
       click_on 'Discover Movies'
-      expect(current_path).to eq("/users/#{User.first.id}/discover")
+      expect(current_path).to eq("/users/discover")
     end
 end

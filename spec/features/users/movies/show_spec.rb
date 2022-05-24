@@ -49,6 +49,6 @@ end
   end
   it 'has a button to the discover page' do
     click_button 'Discover Page'
-    expect(current_path).to eq("/users/#{@user.id}/discover")
+    expect(current_path).to eq("/users/discover")
   end
 end
