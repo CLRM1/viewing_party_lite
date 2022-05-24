@@ -10,7 +10,7 @@
 <% @users.each do |user| %>
 
 <div id="user-<%= user.id%>">
-  <p style= "text-align: center"><%= link_to "#{user.email}'s Dashboard", "/users/#{user.id}" %></p>
+  <p style= "text-align: center"><%= link_to "#{user.email}'s Dashboard", "/dashboard" %></p>
 </div>
 
 <% end %>
