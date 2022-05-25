@@ -6,22 +6,26 @@ RSpec.describe 'Landing Page' do
     user_2 = User.create!(name: 'Sally', email:'sally@gmail.com', password: 'password123', password_confirmation: 'password123')
 
     visit '/'
-    expect(page).to have_content('Viewing Party Lite')
     expect(page).to have_button('Create New User')
 
+    click_on 'Create New User'
+
+    fill_in 'name', with: 'Chris'
+    fill_in 'email', with: 'chris@gmail.com'
+    fill_in 'password', with: '123'
+    fill_in 'password_confirmation', with: '123'
+    click_on 'Register'
+
+    visit '/'
     within "#user-#{user_1.id}" do
       expect(page).to have_content('charlie@gmail.com')
       expect(page).to_not have_content('sally@gmail.com')
-      click_link "charlie@gmail.com's Dashboard"
-      expect(current_path).to eq("/users/#{user_1.id}")
     end
 
     visit '/'
     within "#user-#{user_2.id}" do
       expect(page).to have_content('sally@gmail.com')
       expect(page).to_not have_content('charlie@gmail.com')
-      click_link "sally@gmail.com's Dashboard"
-      expect(current_path).to eq("/users/#{user_2.id}")
     end
 
     visit '/'
@@ -37,7 +41,41 @@ RSpec.describe 'Landing Page' do
     fill_in 'email', with: 'charlie@gmail.com'
     fill_in 'password', with: 'password123'
     click_on 'Log in'
-    expect(current_path).to eq("/users/#{user_1.id}")
+    expect(current_path).to eq("/dashboard")
   end
 
+  it "visitors do not see the exisiting users" do
+    visit '/'
+    expect(page).to_not have_content('Existing Users:')
+  end
+
+  it 'registered users see the existing users list without links' do
+    user_1 = User.create!(name: 'Charles', email:'charlie@gmail.com', password: 'password123', password_confirmation: 'password123')
+    visit '/'
+    click_on 'Create New User'
+
+    fill_in 'name', with: 'Chris'
+    fill_in 'email', with: 'chris@gmail.com'
+    fill_in 'password', with: '123'
+    fill_in 'password_confirmation', with: '123'
+    click_on 'Register'
+
+    visit '/'
+    within "#user-#{user_1.id}" do
+      expect(page).to have_content('charlie@gmail.com')
+      expect(page).to_not have_link('charlie@gmail.com')
+    end
+  end
+  # As a visitor
+  # When I visit the landing page
+  # And then try to visit '/dashboard'
+  # I remain on the landing page
+  # And I see a message telling me that I must be logged in or registered to access my dashboard
+  it 'prevents visitors from accessing the dashboard page without being logged in' do
+
+    visit '/'
+    visit '/dashboard'
+    expect(current_path).to eq('/')
+    expect(page).to have_content('Error: you must be logged in or registered to access the dashboard.')
+  end
 end

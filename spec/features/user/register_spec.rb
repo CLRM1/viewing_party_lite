@@ -13,7 +13,7 @@ RSpec.describe "register page" do
       click_button 'Register'
 
       rup = User.first
-      expect(current_path).to eq("/users/#{rup.id}")
+      expect(current_path).to eq("/dashboard")
       expect(page).to have_content("Rupert's Dashboard")
     end
   end

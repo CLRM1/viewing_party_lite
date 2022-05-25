@@ -3,12 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Move detail page' do
   before(:each) do
     @user = User.create!(name: 'Chris', email: 'chris@gmail.com', password: 'password123', password_confirmation: 'password123')
-    visit "/users/#{@user.id}/movies/862"
+    visit "/users/movies/862"
   end
 
 it 'has a button to create a viewing party' do
   click_button 'Create Viewing Party'
-  expect(current_path).to eq("/users/#{@user.id}/movies/862/viewing-party/new")
+
+  expect(current_path).to eq("/users/movies/862")
+  expect(page).to have_content("Error: you must be logged in to create a viewing party.")
 end
   it 'displays movie details' do
     expect(page).to have_content('Toy Story')
@@ -49,6 +51,6 @@ end
   end
   it 'has a button to the discover page' do
     click_button 'Discover Page'
-    expect(current_path).to eq("/users/#{@user.id}/discover")
+    expect(current_path).to eq("/users/discover")
   end
 end
