@@ -9,11 +9,11 @@ class MoviesController < ApplicationController
     @user = User.first
   end
 
-  def top_movies 
+  def top_movies
      @movies = MovieFacade.new
   end
 
-   def search_results 
+   def search_results
      @movies = MovieFacade.new.search_results(params[:search])
    end
 end

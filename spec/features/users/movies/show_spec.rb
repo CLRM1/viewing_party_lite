@@ -8,7 +8,9 @@ RSpec.describe 'Move detail page' do
 
 it 'has a button to create a viewing party' do
   click_button 'Create Viewing Party'
-  expect(current_path).to eq("/users/movies/862/viewing-party/new")
+
+  expect(current_path).to eq("/users/movies/862")
+  expect(page).to have_content("Error: you must be logged in to create a viewing party.")
 end
   it 'displays movie details' do
     expect(page).to have_content('Toy Story')
