@@ -49,11 +49,7 @@ RSpec.describe 'Landing Page' do
     expect(page).to_not have_content('Existing Users:')
   end
 
-#   As a registered user
-# When I visit the landing page
-# The list of existing users is no longer a link to their show pages
-# But just a list of email addresses
-  it 'registered users see the existing users list' do
+  it 'registered users see the existing users list without links' do
     user_1 = User.create!(name: 'Charles', email:'charlie@gmail.com', password: 'password123', password_confirmation: 'password123')
     visit '/'
     click_on 'Create New User'
@@ -69,5 +65,17 @@ RSpec.describe 'Landing Page' do
       expect(page).to have_content('charlie@gmail.com')
       expect(page).to_not have_link('charlie@gmail.com')
     end
+  end
+  # As a visitor
+  # When I visit the landing page
+  # And then try to visit '/dashboard'
+  # I remain on the landing page
+  # And I see a message telling me that I must be logged in or registered to access my dashboard
+  it 'prevents visitors from accessing the dashboard page without being logged in' do
+
+    visit '/'
+    visit '/dashboard'
+    expect(current_path).to eq('/')
+    expect(page).to have_content('Error: you must be logged in or registered to access the dashboard.')
   end
 end
