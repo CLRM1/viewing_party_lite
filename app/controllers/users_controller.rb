@@ -34,6 +34,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def logout_user
+    session.destroy
+    redirect_to root_path
+  end
+
   def discover
   end
 

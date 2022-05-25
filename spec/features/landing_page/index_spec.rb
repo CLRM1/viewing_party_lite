@@ -18,7 +18,6 @@ RSpec.describe 'Landing Page' do
     click_on 'Register'
 
     visit '/'
-
     within "#user-#{user_1.id}" do
       expect(page).to have_content('charlie@gmail.com')
       expect(page).to_not have_content('sally@gmail.com')
